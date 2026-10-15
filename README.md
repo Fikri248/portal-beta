@@ -7,6 +7,72 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Portal TAT
+
+Aplikasi Register Tim Asesmen Terpadu (TAT) BNNP Jawa Timur — kelola data Register TAT, Draft, Arsip, Laporan, dan Audit Log sesuai kewenangan BNNP / BNNK.
+
+### Akun demo (hasil `php artisan db:seed`)
+
+Semua akun demo memakai password yang sama: `password`.
+
+| Role | Nama | Email | Password |
+|------|------|-------|----------|
+| BNNP | BNNP Jawa Timur | `bnnp_jatim@bnn.go.id` | `password` |
+| BNNK | BNN Kota Malang | `bnnk_kota_malang@bnn.go.id` | `password` |
+| BNNK | BNN Kota Kediri | `bnnk_kota_kediri@bnn.go.id` | `password` |
+| BNNK | BNN Kota Batu | `bnnk_kota_batu@bnn.go.id` | `password` |
+| BNNK | BNN Kota Surabaya | `bnnk_kota_surabaya@bnn.go.id` | `password` |
+| BNNK | BNN Kota Mojokerto | `bnnk_kota_mojokerto@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Nganjuk | `bnnk_kab_nganjuk@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Blitar | `bnnk_kab_blitar@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Sidoarjo | `bnnk_kab_sidoarjo@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Tulungagung | `bnnk_kab_tulungagung@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Kediri | `bnnk_kab_kediri@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Malang | `bnnk_kab_malang@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Lumajang | `bnnk_kab_lumajang@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Gresik | `bnnk_kab_gresik@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Trenggalek | `bnnk_kab_trenggalek@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Sumenep | `bnnk_kab_sumenep@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Pasuruan | `bnnk_kab_pasuruan@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Tuban | `bnnk_kab_tuban@bnn.go.id` | `password` |
+
+> Akun di atas hanya fixture development lokal (lihat `database/seeders/DatabaseSeeder.php`), bukan kredensial production. Ganti password sebelum dipakai di server nyata.
+
+### Cara menjalankan lokal
+
+```text
+composer install
+npm install
+copy .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+npm run build
+php artisan serve
+```
+
+### Cara pull update terbaru dari repo
+
+```text
+cd C:\laragon\www\portal-TAT
+git pull origin main
+composer install
+npm install
+php artisan migrate
+npm run build
+```
+
+Kalau ada perubahan lokal yang belum di-commit dan `git pull` ditolak:
+
+```text
+git stash push -m "sementara"
+git pull origin main
+git stash pop
+composer install
+npm install
+php artisan migrate
+npm run build
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
