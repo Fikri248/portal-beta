@@ -1,1 +1,0 @@
-{"configurations": [{"name": "portal-tat", "port": 8000, "runtimeArgs": ["artisan", "serve", "--port=8000"], "runtimeExecutable": "php"} ], "version": "0.0.1"}
