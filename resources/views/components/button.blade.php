@@ -1,0 +1,3 @@
+@props(['variant' => 'primary', 'type' => 'button'])
+@php($classes=['primary'=>'bg-bnn-600 text-white hover:bg-bnn-700 focus:ring-bnn-400','secondary'=>'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 focus:ring-bnn-400','ghost'=>'text-slate-600 hover:bg-bnn-50 hover:text-bnn-800 focus:ring-bnn-400','danger'=>'bg-red-600 text-white hover:bg-red-700 focus:ring-red-400'][$variant] ?? 'bg-bnn-600 text-white hover:bg-bnn-700 focus:ring-bnn-400')
+<button type="{{ $type }}" {{ $attributes->merge(['class' => 'inline-flex h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 '.$classes]) }}>{{ $slot }}</button>

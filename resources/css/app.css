@@ -1,0 +1,176 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Palet biru khas BNN — diukur langsung dari logo resmi (color-picker).
+       Biru muda (dasar logo): #0984E2 · Biru tua (ring): #0A0A64 · Kuning lis: #FCCF00 */
+    --color-bnn-50: #EFF7FE;
+    --color-bnn-100: #DBEDFD;
+    --color-bnn-200: #BFE0FC;
+    --color-bnn-300: #93CCFA;
+    --color-bnn-400: #60B2F7;
+    --color-bnn-500: #0984E2;
+    --color-bnn-600: #0670C2;
+    --color-bnn-700: #065B9C;
+    --color-bnn-800: #0A4A7E;
+    --color-bnn-900: #0C2F57;
+    --color-bnn-950: #071D3A;
+    --color-bnn-navy: #0A0A64;
+    --color-bnn-gold: #FCCF00;
+}
+
+@layer base {
+    * { @apply border-slate-200; }
+    ::selection { @apply bg-bnn-200 text-bnn-950; }
+
+    /* Tabel responsif: area scroll horizontal yang bisa diakses keyboard + hint. */
+    [role='region'][aria-label^='Tabel data'] { scrollbar-width: thin; scrollbar-color: var(--color-slate-300) transparent; }
+    [role='region'][aria-label^='Tabel data']:focus-visible { outline: 2px solid var(--color-bnn-500); outline-offset: 2px; }
+}
+
+@layer components {
+    /* Mobile-first: tabel punya lebar minimum agar kolom tidak remuk,
+       area scroll horizontal menampung sisanya. */
+    .responsive-table { min-width: var(--table-min-width, 720px); }
+
+    /* Pin kolom identitas (kiri) & aksi (kanan) saat tabel di-scroll (layar kecil).
+       Rule desktop di bawah mematikannya kembali saat semua kolom sudah muat. */
+    .table-pin-first > thead > tr > th:first-child,
+    .table-pin-first > tbody > tr > td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 10;
+    }
+    .table-pin-first > thead > tr > th:first-child { background-color: var(--color-slate-50); }
+    .table-pin-first > tbody > tr > td:first-child { background-color: var(--color-white); box-shadow: 1px 0 0 var(--color-slate-100); }
+    .table-pin-first > tbody > tr:hover > td:first-child { background-color: var(--color-slate-50); }
+
+    .table-pin-last > thead > tr > th:last-child,
+    .table-pin-last > tbody > tr > td:last-child {
+        position: sticky;
+        right: 0;
+        z-index: 10;
+    }
+    .table-pin-last > thead > tr > th:last-child { background-color: var(--color-slate-50); }
+    .table-pin-last > tbody > tr > td:last-child { background-color: var(--color-white); box-shadow: -1px 0 0 var(--color-slate-100); }
+    .table-pin-last > tbody > tr:hover > td:last-child { background-color: var(--color-slate-50); }
+
+    /* Desktop sangat lebar (2xl, >= 1536px): seluruh kolom tampil tanpa scroll.
+       Di bawah breakpoint ini, tabel umum tetap memakai scroll horizontal supaya
+       header dan data tidak dipaksa menjadi kolom sempit. */
+    @media (min-width: 1536px) {
+        .responsive-table { min-width: 0; width: 100%; table-layout: fixed; }
+        .responsive-table > thead > tr > th,
+        .responsive-table > tbody > tr > td {
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+        .table-pin-first > thead > tr > th:first-child,
+        .table-pin-first > tbody > tr > td:first-child,
+        .table-pin-last > thead > tr > th:last-child,
+        .table-pin-last > tbody > tr > td:last-child { position: static; box-shadow: none; }
+    }
+
+    /* Laporan mempunyai sembilan kolom. Pada desktop, ruang sel dan tipografi
+       dipadatkan agar tabel tidak memperlebar halaman saat zoom-out. */
+    @media (min-width: 1024px) {
+        .table-scroll-adaptive > .adaptive-table {
+            min-width: 0;
+            width: 100%;
+            table-layout: fixed;
+        }
+        /* Header dan isi hanya boleh wrap antar-kata, bukan di tengah kata
+           (menghindari "REKOMENDA SI", "PELAKSANA AN", "Lemba ga").
+           Token panjang tanpa spasi (mis. NO REGISTER) tetap boleh pecah
+           bila melebihi lebar kolom lewat overflow-wrap: break-word. */
+        .table-scroll-adaptive > .adaptive-table > thead > tr > th {
+            white-space: normal;
+            word-break: normal;
+            overflow-wrap: break-word;
+            hyphens: none;
+            text-wrap: balance;
+            text-align: center;
+            vertical-align: bottom;
+            padding: 0.5rem 0.375rem;
+            font-size: 0.625rem;
+            line-height: 0.875rem;
+            letter-spacing: 0;
+        }
+        .table-scroll-adaptive > .adaptive-table > tbody > tr > td {
+            white-space: normal;
+            word-break: normal;
+            overflow-wrap: break-word;
+            padding: 0.75rem;
+            font-size: 0.8125rem;
+            line-height: 1.25rem;
+        }
+        .table-scroll-adaptive > .adaptive-table > tbody > tr > td .text-xs,
+        .table-scroll-adaptive > .adaptive-table > tbody > tr > td .table-sub { font-size: 0.6875rem; line-height: 1rem; }
+        .table-scroll-adaptive > .adaptive-table.table-pin-first > thead > tr > th:first-child,
+        .table-scroll-adaptive > .adaptive-table.table-pin-first > tbody > tr > td:first-child,
+        .table-scroll-adaptive > .adaptive-table.table-pin-last > thead > tr > th:last-child,
+        .table-scroll-adaptive > .adaptive-table.table-pin-last > tbody > tr > td:last-child { position: static; box-shadow: none; }
+    }
+
+    @media (min-width: 1536px) {
+        .table-scroll-adaptive > .adaptive-table > thead > tr > th { padding-inline: 1rem; font-size: 0.75rem; }
+        .table-scroll-adaptive > .adaptive-table > tbody > tr > td { padding: 1rem; font-size: 0.875rem; line-height: 1.375rem; }
+        .table-scroll-adaptive > .adaptive-table > tbody > tr > td .text-xs,
+        .table-scroll-adaptive > .adaptive-table > tbody > tr > td .table-sub { font-size: 0.75rem; line-height: 1.125rem; }
+    }
+}
+
+@layer utilities {
+    /* Override .whitespace-nowrap (layer utilities Tailwind menang atas
+       rule components). Tanpa ini, sel nowrap meluap dari kolom fixed-layout
+       dan menumpuk teks sel tetangga saat zoom-out / viewport lebar. */
+    @media (min-width: 1536px) {
+        /* Ruang sel diperkecil di desktop agar header tidak terpotong per huruf.
+           Padding mobile tetap longgar karena tabel dipindahkan melalui scroll. */
+        .responsive-table > thead > tr > th,
+        .responsive-table > tbody > tr > td {
+            padding-inline: 0.75rem;
+            white-space: normal;
+        }
+
+        /* Header boleh pindah baris antar-kata, tetapi satu kata tidak boleh
+           dipecah seperti "TANGG / AL". Isi data tetap boleh wrap panjang. */
+        .responsive-table > thead > tr > th {
+            overflow-wrap: normal;
+            word-break: normal;
+            hyphens: none;
+        }
+    }
+
+    /* Se-level dengan Tailwind utilities supaya nowrap, padding, dan font-size
+       Tailwind pada template tidak kembali menimpa aturan desktop adaptive. */
+    @media (min-width: 1024px) {
+        .table-scroll-adaptive > .adaptive-table > thead > tr > th.table-head,
+        .table-scroll-adaptive > .adaptive-table > tbody > tr > td.table-cell { white-space: normal; }
+        .table-scroll-adaptive > .adaptive-table > thead > tr > th.table-head {
+            padding: 0.5rem 0.375rem;
+            font-size: 0.625rem;
+            line-height: 0.875rem;
+            letter-spacing: 0;
+            text-align: center;
+        }
+        /* Kolom pendek (NO/BLN) tidak boleh wrap — paksa satu baris. */
+        .table-scroll-adaptive > .adaptive-table > thead > tr > th.table-head.whitespace-nowrap { white-space: nowrap; }
+        .table-scroll-adaptive > .adaptive-table > tbody > tr > td.table-cell {
+            padding: 0.75rem;
+            font-size: 0.8125rem;
+            line-height: 1.25rem;
+        }
+        .table-scroll-adaptive > .adaptive-table > tbody > tr > td .table-sub {
+            font-size: 0.6875rem;
+            line-height: 1rem;
+        }
+    }
+}

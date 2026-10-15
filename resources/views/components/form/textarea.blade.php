@@ -1,0 +1,3 @@
+@props(['name', 'label', 'required' => false, 'value' => null, 'help' => null])
+@php($fallbackValue=$slot->isNotEmpty() ? $slot : $value)
+<div><label for="{{ $name }}" class="mb-1.5 block text-sm font-medium text-slate-700">{{ $label }} @if($required)<span class="text-red-500">*</span>@endif</label><textarea id="{{ $name }}" name="{{ $name }}" @if($required) required @endif {{ $attributes->merge(['class' => 'min-h-24 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200']) }}>{{ old($name, $fallbackValue) }}</textarea>@if($help)<p class="mt-1.5 text-xs text-slate-500">{{ $help }}</p>@endif<x-form.error :for="$name" /></div>

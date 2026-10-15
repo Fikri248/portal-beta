@@ -1,0 +1,3 @@
+@props(['status', 'label' => null])
+@php($styles=['draft'=>'bg-amber-50 text-amber-700 ring-1 ring-inset ring-amber-200','final'=>'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200','active'=>'bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-200','inactive'=>'bg-slate-100 text-slate-600 ring-1 ring-inset ring-slate-200','archived'=>'bg-slate-100 text-slate-600 ring-1 ring-inset ring-slate-200'][$status] ?? 'bg-slate-100 text-slate-600 ring-1 ring-inset ring-slate-200')
+<span {{ $attributes->merge(['class' => 'inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold '.$styles]) }}>{{ $label ?? ucfirst($status) }}</span>

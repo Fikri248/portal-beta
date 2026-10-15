@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration; use Illuminate\Database\Schema\Blueprint; use Illuminate\Support\Facades\Schema;
+return new class extends Migration { public function up(): void { Schema::create('tat_narcotics', function(Blueprint $table){$table->id();$table->foreignId('tat_register_id')->constrained('tat_registers')->cascadeOnDelete();$table->foreignId('narcotic_type_id')->constrained('narcotic_types')->restrictOnDelete();$table->decimal('jumlah',12,3)->nullable();$table->foreignId('unit_id')->nullable()->constrained('units')->restrictOnDelete();$table->timestamps();$table->index('narcotic_type_id');$table->index('unit_id');}); } public function down(): void { Schema::dropIfExists('tat_narcotics'); } };

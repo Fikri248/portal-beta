@@ -1,0 +1,2 @@
+@props(['title', 'description' => null, 'action' => null])
+<div {{ $attributes->merge(['class' => 'rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center']) }}><h3 class="text-sm font-semibold text-slate-800">{{ $title }}</h3>@if($description)<p class="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">{{ $description }}</p>@endif @if($action)<div class="mt-5">{{ $action }}</div>@endif</div>

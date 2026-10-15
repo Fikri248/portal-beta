@@ -1,0 +1,2 @@
+@props(['title', 'description' => null])
+<section {{ $attributes->merge(['class' => 'rounded-2xl border border-slate-200 bg-white shadow-sm']) }}><div class="border-b border-slate-100 px-5 py-4 sm:px-6"><h2 class="text-base font-semibold text-slate-900">{{ $title }}</h2>@if($description)<p class="mt-1 text-sm text-slate-500">{{ $description }}</p>@endif</div><div class="grid grid-cols-1 gap-5 px-5 py-5 sm:px-6 md:grid-cols-2">{{ $slot }}</div></section>

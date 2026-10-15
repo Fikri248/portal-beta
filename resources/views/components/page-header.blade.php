@@ -1,0 +1,2 @@
+@props(['title', 'description' => null])
+<div {{ $attributes->merge(['class' => 'mb-8']) }}><p class="mb-2 text-sm font-medium text-slate-500">Portal TAT</p><div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><h1 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">{{ $title }}</h1>@if($description)<p class="mt-2 max-w-2xl text-sm leading-6 text-slate-500">{{ $description }}</p>@endif</div>@isset($actions)<div class="flex shrink-0 flex-wrap items-center gap-2 self-start sm:self-auto">{{ $actions }}</div>@endisset</div></div>
