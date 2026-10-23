@@ -37,7 +37,7 @@
                 <tr class="align-top hover:bg-slate-50">
                     <td class="table-cell px-5 py-4 font-semibold text-slate-800">{{ $user->name }}</td>
                     <td class="table-cell px-5 py-4 text-slate-600">{{ $user->email }}</td>
-                    <td class="table-cell whitespace-nowrap px-5 py-4 text-slate-600">{{ $user->role->label() }}</td>
+                    <td class="table-cell whitespace-nowrap px-5 py-4 text-center text-slate-600">{{ $user->role->label() }}</td>
                     <td class="table-cell whitespace-nowrap px-5 py-4 text-slate-600">{{ $user->bnnk?->name ?? '—' }}</td>
                     <td class="table-cell px-5 py-4 text-center"><x-badge :status="$user->is_active ? 'active' : 'inactive'" :label="$user->is_active ? 'Aktif' : 'Nonaktif'" /></td>
                     <td class="table-cell whitespace-nowrap px-5 py-4 text-center">
