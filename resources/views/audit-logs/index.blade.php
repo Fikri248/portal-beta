@@ -24,14 +24,14 @@
     <x-table minWidth="1120px" :stickyFirst="true" :stickyLast="false" adaptive>
         <x-slot:colgroup>
             <colgroup>
-                <col style="width: 15%">
-                <col style="width: 20%">
-                <col style="width: 10%">
-                <col style="width: 12%">
-                <col style="width: 15%">
+                <col style="width: 13%">
+                <col style="width: 18%">
+                <col style="width: 8%">
+                <col style="width: 13%">
+                <col style="width: 14%">
                 <col style="width: 11%">
                 <col style="width: 8%">
-                <col style="width: 9%">
+                <col style="width: 15%">
             </colgroup>
         </x-slot:colgroup>
         <x-slot:head>
@@ -61,7 +61,7 @@
                 <td class="table-cell px-5 py-4 font-semibold text-slate-800">{{ $log->actionLabel() }}</td>
                 <td class="table-cell whitespace-nowrap px-5 py-4 text-slate-600">{{ match($log->entity_type) { 'TatRegister' => 'Register TAT', 'User' => 'User', default => $log->entity_type ?? '—' } }}</td>
                 <td class="table-cell whitespace-nowrap px-5 py-4 text-slate-600">{{ $log->entity_id ?? '—' }}</td>
-                <td class="table-cell whitespace-nowrap px-5 py-4 text-center"><x-table.action :href="route('audit-logs.show', $log)">Lihat Detail</x-table.action></td>
+                <td class="table-cell px-5 py-4 text-center"><x-table.action :href="route('audit-logs.show', $log)">Detail</x-table.action></td>
             </tr>
         @endforeach
     </x-table>
