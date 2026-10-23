@@ -432,7 +432,24 @@ const initializeDashboardCharts = () => {
     });
 };
 
+// Placeholder strip (—, -, –) tanda data kosong harus rata tengah di semua tabel,
+// walau alignment bawaan kolomnya rata kiri/kanan. Dicek per sel: hanya sel yang
+// seluruh isinya strip yang di-center, sel berisi teks lain tidak tersentuh.
+const centerEmptyPlaceholders = (scope = document) => {
+    if (!scope.querySelectorAll) {
+        return;
+    }
+
+    scope.querySelectorAll('table td').forEach((cell) => {
+        const text = cell.textContent.trim();
+        if ((text === '—' || text === '-' || text === '–') && !cell.classList.contains('text-center')) {
+            cell.classList.add('text-center');
+        }
+    });
+};
+
 const initializeApplication = () => {
+    centerEmptyPlaceholders();
     initializeCustomSelects();
     initializeBnnkCreation();
     initializeDashboardCharts();
