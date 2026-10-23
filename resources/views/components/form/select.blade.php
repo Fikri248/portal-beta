@@ -6,6 +6,7 @@
     'disabled' => false,
     'value' => null,
     'placeholder' => 'Pilih opsi',
+    'help' => null,
 ])
 
 @php
@@ -72,5 +73,6 @@
         @endforeach
     </div>
 
+    @if($help)<p class="mt-1.5 text-xs text-slate-500">{{ $help }}</p>@endif
     <x-form.error :for="$name" />
 </div>

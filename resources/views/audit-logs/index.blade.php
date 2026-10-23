@@ -9,10 +9,15 @@
     <form method="GET" action="{{ route('audit-logs.index') }}" class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <x-form.input name="date_from" label="Dari tanggal" type="date" :value="$filters['date_from']" />
         <x-form.input name="date_to" label="Sampai tanggal" type="date" :value="$filters['date_to']" />
-        <x-form.select name="user_id" label="User" :options="$users->mapWithKeys(fn ($user) => [$user->id => $user->name.' — '.$user->email])->all()" :value="$filters['user_id']" placeholder="Semua user" />
-        <x-form.select name="action" label="Aktivitas" :options="$actions" :value="$filters['action']" placeholder="Semua aktivitas" />
-        <x-form.select name="bnnk_id" label="BNNK" :options="$bnnks->pluck('name', 'id')->all()" :value="$filters['bnnk_id']" placeholder="Semua BNNK" />
-        <x-form.select name="entity_type" label="Entitas" :options="$entityTypes" :value="$filters['entity_type']" placeholder="Semua entitas" />
+        <x-form.select name="user_id" label="User" :options="$users->mapWithKeys(fn ($user) => [$user->id => $user->name.' — '.$user->email])->all()" :value="$filters['user_id']" placeholder="Semua user" help="Siapa yang beraktivitas. Pilih satu akun untuk melihat semua aktivitas akun tersebut." />
+        <x-form.select name="action" label="Aktivitas" :options="$actions" :value="$filters['action']" placeholder="Semua aktivitas" help="Jenis kejadian, mis. login, tambah, atau ubah data." />
+        <x-form.select name="bnnk_id" label="BNNK" :options="$bnnks->pluck('name', 'id')->all()" :value="$filters['bnnk_id']" placeholder="Semua BNNK" help="Di lingkup unit mana peristiwa tercatat, oleh siapa pun. Beda dengan filter User." />
+        <x-form.select name="entity_type" label="Entitas" :options="$entityTypes" :value="$filters['entity_type']" placeholder="Semua entitas" help="Objek yang terkena aktivitas: Register TAT atau User." />
+        @if(!empty($filterWarning))
+            <div class="md:col-span-2 xl:col-span-3">
+                <x-alert type="warning">{{ $filterWarning }}</x-alert>
+            </div>
+        @endif
         <div class="flex items-end gap-3 md:col-span-2 xl:col-span-3">
             <x-button type="submit">Terapkan Filter</x-button>
             <a href="{{ route('audit-logs.index') }}" class="inline-flex h-10 items-center rounded-lg border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-700 hover:bg-slate-50">Reset</a>

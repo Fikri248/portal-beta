@@ -39,10 +39,22 @@ class AuditLogController extends Controller
             ->paginate($perPage)
             ->withQueryString();
 
+        $filterWarning = null;
+
+        if (is_numeric($filters['user_id']) && is_numeric($filters['bnnk_id'])) {
+            $selectedUser = User::query()->find((int) $filters['user_id']);
+
+            if ($selectedUser?->isBnnk() && (int) $selectedUser->bnnk_id !== (int) $filters['bnnk_id']) {
+                $selectedBnnk = Bnnk::query()->find((int) $filters['bnnk_id']);
+                $filterWarning = 'Kombinasi User '.$selectedUser->name.' dengan BNNK '.($selectedBnnk?->name ?? 'tersebut').' kemungkinan tidak menghasilkan data, karena akun BNNK hanya beraktivitas di unitnya sendiri. Kosongkan salah satunya untuk hasil yang lebih luas.';
+            }
+        }
+
         return view('audit-logs.index', [
             'logs' => $logs,
             'perPage' => $perPage,
             'filters' => $filters,
+            'filterWarning' => $filterWarning,
             'actions' => AuditLogAction::options(),
             'users' => User::query()->with('bnnk')->orderBy('name')->get(),
             'bnnks' => Bnnk::query()->orderBy('name')->get(),
