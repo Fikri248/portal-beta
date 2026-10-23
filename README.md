@@ -35,6 +35,7 @@ Semua akun demo memakai password yang sama: `password`.
 | BNNK | BNN Kabupaten Sumenep | `bnnk_kab_sumenep@bnn.go.id` | `password` |
 | BNNK | BNN Kabupaten Pasuruan | `bnnk_kab_pasuruan@bnn.go.id` | `password` |
 | BNNK | BNN Kabupaten Tuban | `bnnk_kab_tuban@bnn.go.id` | `password` |
+| BNNK | BNN Kabupaten Banyuwangi | `bnnk_kab_banyuwangi@bnn.go.id` | `password` |
 
 > Akun di atas hanya fixture development lokal (lihat `database/seeders/DatabaseSeeder.php`), bukan kredensial production. Ganti password sebelum dipakai di server nyata.
 

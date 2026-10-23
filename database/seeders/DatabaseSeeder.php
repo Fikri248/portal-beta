@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        // 17 BNN Kabupaten/Kota di bawah BNNP Jawa Timur.
+        // 18 BNN Kabupaten/Kota di bawah BNNP Jawa Timur.
         // Email mengikuti format bnnk_namakota@bnn.go.id
         // (kota/kab dimasukkan ke local-part agar Kota vs Kabupaten tidak tabrakan,
         //  mis. Kota Malang vs Kabupaten Malang).
@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'BNN Kabupaten Sumenep', 'email' => 'bnnk_kab_sumenep@bnn.go.id'],
             ['name' => 'BNN Kabupaten Pasuruan', 'email' => 'bnnk_kab_pasuruan@bnn.go.id'],
             ['name' => 'BNN Kabupaten Tuban', 'email' => 'bnnk_kab_tuban@bnn.go.id'],
+            ['name' => 'BNN Kabupaten Banyuwangi', 'email' => 'bnnk_kab_banyuwangi@bnn.go.id'],
         ];
 
         User::updateOrCreate(['email' => 'bnnp_jatim@bnn.go.id'], [
